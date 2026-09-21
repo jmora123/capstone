@@ -3,19 +3,26 @@ import { Routes, Route } from 'react-router-dom';
 import Homepage from './Homepage';
 import BookingPage from './BookingPage';
 
-// 1. Función para definir el estado inicial de las horas disponibles
+// 1. Modificamos initializeTimes para que obtenga la fecha de hoy
 export function initializeTimes() {
-  return ['17:00', '18:00', '19:00', '20:00', '21:00', '22:00'];
+  const today = new Date();
+  // Llamamos a la API global pasando la fecha de hoy
+  return window.fetchAPI(today);
 }
 
-// 2. Función reductora para actualizar las horas según la fecha seleccionada
+// 2. Modificamos updateTimes para que procese la fecha seleccionada por el usuario
 export function updateTimes(state, action) {
-  // Por ahora devuelve las mismas horas independientemente de la fecha
-  return ['17:00', '18:00', '19:00', '20:00', '21:00', '22:00'];
+  if (action.type === 'UPDATE_TIMES') {
+    // Convertimos la fecha (que viene como texto desde el formulario) a un objeto Date
+    const selectedDate = new Date(action.date);
+    // Llamamos a la API para obtener las horas disponibles de ESE día
+    return window.fetchAPI(selectedDate);
+  }
+  return state;
 }
 
 function Main() {
-  // 3. Inicializamos useReducer enviando la función reductora y la función inicializadora
+  // El useReducer se mantiene igual, pero ahora ejecuta las nuevas funciones
   const [availableTimes, dispatch] = useReducer(updateTimes, [], initializeTimes);
 
   return (
