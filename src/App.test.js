@@ -1,8 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders Little Lemon main heading', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+  // Busca específicamente el encabezado h1 con el texto "Little Lemon"
+  const headingElement = screen.getByRole('heading', { name: /Little Lemon/i, level: 1 });
+
+  expect(headingElement).toBeInTheDocument();
 });
