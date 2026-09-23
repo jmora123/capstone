@@ -22,22 +22,22 @@ function Main() {
   
   const navigate = useNavigate();
 
-  // 1. Inicializamos el estado leyendo el localStorage (si existe data previa)
+  // 1. Initialize state by reading localStorage for previously saved bookings
   const [bookingData, setBookingData] = useState(() => {
     const savedBookings = localStorage.getItem('bookings');
     return savedBookings ? JSON.parse(savedBookings) : [];
   });
 
-  // 2. Usamos useEffect para guardar automáticamente en localStorage cada vez que bookingData cambie
+  // 2. Automatically sync state changes to localStorage
   useEffect(() => {
     localStorage.setItem('bookings', JSON.stringify(bookingData));
   }, [bookingData]);
 
-  // Función para procesar el envío del formulario
+  // Function to handle form submission
   const submitForm = (formData) => {
     const isSubmitted = window.submitAPI ? window.submitAPI(formData) : true;
     if (isSubmitted) {
-      // Agregamos la nueva reserva al arreglo existente
+      // Append the new reservation to the state array
       setBookingData((prevData) => [...prevData, formData]);
       navigate('/confirmed');
       return true;

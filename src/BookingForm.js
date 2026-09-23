@@ -1,26 +1,46 @@
 import React, { useState } from 'react';
 
 const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
-  // Inicializamos los campos vacíos para que coincidan con el estado inicial esperado por los tests
+  // Initialize form state fields
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [guests, setGuests] = useState('1');
   const [occasion, setOccasion] = useState('Birthday');
+  
+  // Submission control and error handling state
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
-  // Validación para habilitar o deshabilitar el botón de envío
-  const isFormValid = date && time && guests >= 1 && guests <= 10 && occasion;
+  // Form validation checks
+  const isGuestsValid = guests >= 1 && guests <= 10;
+  const isFormValid = date && time && isGuestsValid && occasion;
 
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSubmitError('');
+    
     if (isFormValid) {
       setIsSubmitting(true);
-      submitForm({ date, time, guests, occasion });
+      const isSuccess = submitForm({ date, time, guests, occasion });
+      
+      if (!isSuccess) {
+        setSubmitError('The reservation could not be processed at this time. Please try again.');
+        setIsSubmitting(false);
+      }
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'grid', maxWidth: '300px', gap: '20px' }}>
+    <form onSubmit={handleSubmit} style={{ display: 'grid', maxWidth: '300px', gap: '20px', margin: '0 auto', textAlign: 'left' }}>
+      {/* Display error message if submission fails */}
+      {submitError && (
+        <div style={{ padding: '10px', backgroundColor: '#f8d7da', color: '#721c24', borderRadius: '4px' }}>
+          {submitError}
+        </div>
+      )}
+
+      {/* Date input field */}
       <div>
         <label htmlFor="res-date">Choose date</label>
         <input
@@ -30,15 +50,17 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
           required
           onChange={(e) => {
             setDate(e.target.value);
+            // Update available time slots based on the selected date
             dispatch({ type: 'UPDATE_TIMES', date: e.target.value });
           }}
           aria-describedby="date-help"
         />
         <small id="date-help" style={{ display: 'block', fontSize: '0.85em', color: '#555' }}>
-          Selecciona el día para tu reserva.
+          Select the day for your reservation.
         </small>
       </div>
 
+      {/* Time selection field */}
       <div>
         <label htmlFor="res-time">Choose time</label>
         <select
@@ -48,7 +70,7 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
           onChange={(e) => setTime(e.target.value)}
           aria-describedby="time-help"
         >
-          <option value="" disabled>Selecciona una hora</option>
+          <option value="" disabled>Select a time</option>
           {availableTimes.map((availableTime) => (
             <option key={availableTime} value={availableTime}>
               {availableTime}
@@ -56,10 +78,11 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
           ))}
         </select>
         <small id="time-help" style={{ display: 'block', fontSize: '0.85em', color: '#555' }}>
-          Elige una hora disponible del restaurante.
+          Choose an available time slot from the restaurant.
         </small>
       </div>
 
+      {/* Number of guests field */}
       <div>
         <label htmlFor="guests">Number of guests</label>
         <input
@@ -73,11 +96,17 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
           onChange={(e) => setGuests(e.target.value)}
           aria-describedby="guests-help"
         />
+        {!isGuestsValid && guests !== '' && (
+          <span style={{ color: 'red', fontSize: '0.85em', display: 'block', marginTop: '4px' }}>
+            Table capacity is strictly between 1 and 10 guests.
+          </span>
+        )}
         <small id="guests-help" style={{ display: 'block', fontSize: '0.85em', color: '#555' }}>
-          Capacidad de 1 a 10 personas por mesa.
+          Capacity from 1 to 10 people per table.
         </small>
       </div>
 
+      {/* Occasion selection field */}
       <div>
         <label htmlFor="occasion">Occasion</label>
         <select
@@ -89,19 +118,30 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
         >
           <option value="Birthday">Birthday</option>
           <option value="Anniversary">Anniversary</option>
+          <option value="Business">Business</option>
+          <option value="Other">Other</option>
         </select>
         <small id="occasion-help" style={{ display: 'block', fontSize: '0.85em', color: '#555' }}>
-          Indícanos si celebras algo especial.
+          Let us know if you are celebrating a special occasion.
         </small>
       </div>
 
+      {/* Submit button with accessible aria-label */}
       <button
         type="submit"
         disabled={!isFormValid || isSubmitting}
-        aria-label="On Click"
-        style={{ padding: '10px', cursor: isFormValid ? 'pointer' : 'not-allowed' }}
+        aria-label="Confirm and make your reservation"
+        style={{ 
+          padding: '12px', 
+          cursor: isFormValid ? 'pointer' : 'not-allowed',
+          backgroundColor: isFormValid ? '#F4CE14' : '#ccc',
+          border: 'none',
+          borderRadius: '8px',
+          fontWeight: 'bold',
+          color: '#333'
+        }}
       >
-        {isSubmitting ? 'Procesando reserva...' : 'Make Your reservation'}
+        {isSubmitting ? 'Processing reservation...' : 'Make Your Reservation'}
       </button>
     </form>
   );

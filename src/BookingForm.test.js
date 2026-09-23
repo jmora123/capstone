@@ -41,45 +41,46 @@ describe('JavaScript Form Validation and Submission', () => {
 
   test('Submit button is disabled initially (invalid state)', () => {
     render(<BookingForm availableTimes={availableTimes} dispatch={dispatch} submitForm={submitForm} />);
-    const submitButton = screen.getByRole('button', { name: /on click/i });
+    const submitButton = screen.getByRole('button', { name: /confirm and make your reservation/i });
     
-    // El botón debe estar deshabilitado porque los campos fecha, hora y ocasión están vacíos al inicio
+    // The button must be disabled because date and time fields are empty initially
     expect(submitButton).toBeDisabled();
   });
 
   test('Submit button is disabled if guests are outside valid range (invalid state)', () => {
     render(<BookingForm availableTimes={availableTimes} dispatch={dispatch} submitForm={submitForm} />);
     
-    // Llenamos los campos pero ponemos un valor inválido (0) en invitados
+    // Fill in the fields with an invalid guest count (0)
     fireEvent.change(screen.getByLabelText(/choose date/i), { target: { value: '2026-10-15' } });
     fireEvent.change(screen.getByLabelText(/choose time/i), { target: { value: '17:00' } });
     fireEvent.change(screen.getByLabelText(/occasion/i), { target: { value: 'Birthday' } });
     fireEvent.change(screen.getByLabelText(/number of guests/i), { target: { value: '0' } });
 
-    const submitButton = screen.getByRole('button', { name: /on click/i });
+    const submitButton = screen.getByRole('button', { name: /confirm and make your reservation/i });
     
-    // El botón debe seguir deshabilitado
+    // Button should remain disabled
     expect(submitButton).toBeDisabled();
   });
 
   test('Submit button is enabled and calls submitForm when all fields are valid', () => {
+    submitForm.mockReturnValue(true);
     render(<BookingForm availableTimes={availableTimes} dispatch={dispatch} submitForm={submitForm} />);
 
-    // Llenamos el formulario con datos válidos
+    // Fill form with valid data
     fireEvent.change(screen.getByLabelText(/choose date/i), { target: { value: '2026-10-15' } });
     fireEvent.change(screen.getByLabelText(/choose time/i), { target: { value: '17:00' } });
     fireEvent.change(screen.getByLabelText(/number of guests/i), { target: { value: '4' } });
     fireEvent.change(screen.getByLabelText(/occasion/i), { target: { value: 'Anniversary' } });
 
-    const submitButton = screen.getByRole('button', { name: /on click/i });
+    const submitButton = screen.getByRole('button', { name: /confirm and make your reservation/i });
 
-    // El botón ahora debe estar habilitado
+    // Button should now be enabled
     expect(submitButton).toBeEnabled();
 
-    // Hacemos clic en el botón
+    // Click submit
     fireEvent.click(submitButton);
 
-    // Verificamos que se haya enviado la información correctamente
+    // Verify submission callback was invoked
     expect(submitForm).toHaveBeenCalledWith({
       date: '2026-10-15',
       time: '17:00',

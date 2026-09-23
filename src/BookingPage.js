@@ -13,7 +13,7 @@ function BookingPage({ availableTimes, dispatch, bookingData, submitForm }) {
         submitForm={submitForm}
       />
 
-      {/* Tabla que renderiza los datos almacenados en bookingData */}
+      {/* Table rendering saved reservations stored in bookingData */}
       <div style={{ marginTop: '3rem' }}>
         <h2>Reservations List</h2>
         {bookingData && bookingData.length > 0 ? (

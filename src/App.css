@@ -213,7 +213,7 @@ h1, h2, h3, h4 {
   border-radius: var(--border-radius);
 }
 
-/* Responsividad para móviles */
+/* Mobile responsiveness */
 @media (max-width: 768px) {
   .header-nav-container, .hero, .about {
     grid-template-columns: 1fr;

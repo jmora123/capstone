@@ -1,10 +1,10 @@
 import { initializeTimes, updateTimes } from './Main';
 
 describe('Booking Form Time Functions', () => {
-  // Antes de cada prueba, inyectamos fetchAPI en el objeto global de Jest
+  // Inject mock fetchAPI function into Jest global window object before each test
   beforeEach(() => {
     window.fetchAPI = jest.fn((date) => {
-      // Simulamos la respuesta de la API de Meta
+      // Simulate Meta API response
       return ['17:00', '18:00', '19:00', '20:00', '21:00', '22:00'];
     });
   });
@@ -12,7 +12,7 @@ describe('Booking Form Time Functions', () => {
   test('initializeTimes returns a non-empty array of available times', () => {
     const times = initializeTimes();
     
-    // Verificamos que sea un arreglo y que contenga datos
+    // Verify times is an array and contains elements
     expect(Array.isArray(times)).toBe(true);
     expect(times.length).toBeGreaterThan(0);
     expect(times).toEqual(['17:00', '18:00', '19:00', '20:00', '21:00', '22:00']);
@@ -24,9 +24,8 @@ describe('Booking Form Time Functions', () => {
     
     const newState = updateTimes(initialState, action);
     
-    // Verificamos que siga devolviendo un arreglo tras la actualización
+    // Verify state update returns an array from the mock API
     expect(Array.isArray(newState)).toBe(true);
-    // Verificamos que la función reductora invocó nuestra API simulada
     expect(newState).toEqual(['17:00', '18:00', '19:00', '20:00', '21:00', '22:00']);
   });
   
@@ -36,7 +35,7 @@ describe('Booking Form Time Functions', () => {
     
     const newState = updateTimes(initialState, action);
     
-    // Si la acción no es UPDATE_TIMES, debe devolver el estado intacto
+    // Unhandled action types must leave state intact
     expect(newState).toEqual(initialState);
   });
 });

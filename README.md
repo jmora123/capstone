@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# Little Lemon Restaurant App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the front-end web application developed for the Meta Front-End Developer Capstone project on Coursera. Little Lemon is a family-owned Mediterranean restaurant focused on traditional recipes served with a modern twist. 
 
-## Available Scripts
+## Key Features
+* **Semantic & Responsive Design:** Layout adapts perfectly to both desktop and mobile devices using CSS Grid and Flexbox.
+* **Booking System:** A robust form that allows users to select dates, dynamic available times, party size, and occasions.
+* **Form Validation:** Client-side HTML5 and JavaScript validations ensure all fields satisfy constraints before processing.
+* **Accessibility:** Integrated standard ARIA labels, semantic HTML tags, and form helpers to ensure smooth navigation for screen readers.
+* **Local Storage Persistence:** Booking data is saved locally so information is maintained across browser sessions.
+* **Automated Tests:** Built-in unit tests verifying component behaviors, DOM elements, and state reducer logic using Jest and React Testing Library.
 
-In the project directory, you can run:
+## Tech Stack
+* React.js (Bootstrapped with Create React App)
+* React Router DOM for internal navigation
+* CSS3 for custom styling
+* HTML5
 
-### `npm start`
+## Installation and Setup
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. **Clone the repository:**
+   Ensure you have Git installed, then download the code locally.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. **Navigate to the project folder:**
+   `cd capstone`
 
-### `npm test`
+3. **Install the dependencies:**
+   Make sure you have Node.js installed, then run:
+   `npm install`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. **Start the development server:**
+   `npm start`
+   The application will run automatically and open in your browser at [http://localhost:3000](http://localhost:3000).
 
-### `npm run build`
+## Running Tests
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To run the automated test suite, execute the following command in the terminal:
+`npm test`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This command will launch the interactive test watcher. Press `a` to run all available tests.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## API Integration Note
+The booking system simulates communication using a mock API script provided by Coursera (`https://raw.githubusercontent.com/courseraap/capstone/main/api.js`), which is embedded in the `public/index.html` file.

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom'; // Importamos el enrutador
+import { BrowserRouter } from 'react-router-dom'; // Import the router
 import Header from './Header';
 import Nav from './Nav';
 import Main from './Main';
