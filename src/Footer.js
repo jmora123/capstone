@@ -1,35 +1,48 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
     <footer className="footer">
       <div className="footer-container">
-        <div className="footer-logo">
-          <div className="img-placeholder">Logo</div>
+        {/* Logo Section */}
+        <div>
+          {/* Placeholder for the Footer Logo */}
+          <div className="img-placeholder" style={{ height: '100px', width: '100px', backgroundColor: '#EDEFEE' }}>
+            <span style={{ color: '#495E57', fontWeight: 'bold' }}>Logo</span>
+          </div>
         </div>
-        <div className="footer-nav">
+
+        {/* Doormat Navigation Section */}
+        <div>
           <h4>Doormat Navigation</h4>
           <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#menu">Menu</a></li>
-            <li><a href="#reservations">Reservations</a></li>
-            <li><a href="#order">Order Online</a></li>
-            <li><a href="#login">Login</a></li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/menu">Menu</Link></li>
+            <li><Link to="/booking">Reservations</Link></li>
+            <li><Link to="/order">Order Online</Link></li>
+            <li><Link to="/login">Login</Link></li>
           </ul>
         </div>
-        <div className="footer-contact">
+
+        {/* Contact Section */}
+        <div>
           <h4>Contact</h4>
-          <p>123 Lemon St, Chicago, IL</p>
-          <p>+1 (555) 019-2834</p>
-          <p>info@littlelemon.com</p>
+          <ul>
+            <li>123 Lemon Street, Chicago, IL</li>
+            <li>(312) 555-0198</li>
+            <li>info@littlelemon.com</li>
+          </ul>
         </div>
-        <div className="footer-social">
+
+        {/* Social Media Section */}
+        <div>
           <h4>Social Media Links</h4>
           <ul>
-            <li><a href="#facebook">Facebook</a></li>
-            <li><a href="#instagram">Instagram</a></li>
-            <li><a href="#twitter">Twitter</a></li>
+            <li><a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+            <li><a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a></li>
           </ul>
         </div>
       </div>
