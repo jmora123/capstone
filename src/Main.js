@@ -45,6 +45,11 @@ function Main() {
     return false;
   };
 
+  // Function to clear all stored reservations
+  const clearBookings = () => {
+    setBookingData([]);
+  };
+
   return (
     <main className="main">
       <Routes>
@@ -57,6 +62,7 @@ function Main() {
               dispatch={dispatch} 
               bookingData={bookingData}
               submitForm={submitForm}
+              clearBookings={clearBookings}
             />
           } 
         />
